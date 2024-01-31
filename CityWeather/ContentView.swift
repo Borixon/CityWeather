@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import RxSwift
 
 struct ContentView: View {
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -15,6 +17,9 @@ struct ContentView: View {
                 .foregroundStyle(.tint)
             Text("Hello, world!")
         }
+        .onAppear(perform: {
+            
+        })
         .padding()
     }
 }
