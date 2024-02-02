@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ReadableWeather: Codable {
+struct NSWeatherReadable: Codable {
     var main: String
     var description: String
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Athmosphere: Codable {
+struct NSAthmosphere: Codable {
     
     var temperature: Float
     var tempSensed: Float
@@ -16,7 +16,7 @@ struct Athmosphere: Codable {
     var pressure: Int16
     var humidity: Int16
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case temperature = "temp"
         case tempSensed = "feels_like"
         case tempMin = "temp_min"

@@ -7,25 +7,25 @@
 
 import Foundation
 
-struct Weather: Codable {
+struct NSWeatherStamp: Codable {
     
-    var time: String
+    var time: Int32
     var timeReadable: String
-    var weather: [ReadableWeather]
-    var athmosphere: Athmosphere
-    var clouds: Clouds
-    var wind: Wind
-    var precipationProb: Float
+    var weather: [NSWeatherReadable]
+    var athmosphere: NSAthmosphere
+    var clouds: NSClouds
+    var wind: NSWind
+    var precipation: Float
     var visibility: Int16
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case time = "dt"
         case timeReadable = "dt_txt"
         case athmosphere = "main"
         case clouds
         case weather
         case wind
-        case precipationProb = "pop"
+        case precipation = "pop"
         case visibility
     }
 }

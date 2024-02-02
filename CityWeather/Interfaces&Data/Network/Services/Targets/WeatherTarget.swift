@@ -9,7 +9,7 @@ import Moya
 import Foundation
 
 enum WeatherTarget {
-    case weatherFor(_ params: [String:Any])
+    case weather(_ params: [String:Any])
 }
 
 extension WeatherTarget: TargetType {
@@ -19,26 +19,35 @@ extension WeatherTarget: TargetType {
     
     var path: String {
         switch self {
-        case .weatherFor:
+        case .weather:
             "data/2.5/forecast"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .weatherFor:
+        case .weather:
             .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .weatherFor(let params):
-            .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .weather(let params):
+            .requestParameters(
+                parameters: obligatoryParams(with: params),
+                encoding: URLEncoding.default)
         }
     }
     
     var headers: [String : String]? {
         nil
+    }
+    
+    private func obligatoryParams(with current: [String:Any]) -> [String:Any] {
+        var params = current
+        params["appid"] = API.key
+        params["units"] = "metric"
+        return params
     }
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Clouds: Codable {
+struct NSClouds: Codable {
     
     var coverage: Int8
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case coverage = "all"
     }
 }

@@ -14,14 +14,8 @@ final class NSWeather: NetworkServiceProtocol {
     
     typealias T = WeatherTarget
     internal let provider = MoyaProvider<T>()
-    
-    func getWeather(for city: String) -> Single<Response> {
-        request(T.weatherFor(
-            params(with: ["q":city]))
-        )
-    }
-    
-    func weather(for city: String) -> Single<Weather> {
-        
+
+    func weather(for city: String) -> Observable<NSCityWeather> {
+        requestData(T.weather(["q":city]))
     }
 }

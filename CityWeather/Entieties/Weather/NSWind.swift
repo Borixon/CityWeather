@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Wind: Codable {
+struct NSWind: Codable {
     
     var speed: Float
     var gust: Float
     var degree: Int16
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case speed
         case gust
         case degree = "deg"
