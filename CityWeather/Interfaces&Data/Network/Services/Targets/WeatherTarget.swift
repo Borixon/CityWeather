@@ -46,8 +46,8 @@ extension WeatherTarget: TargetType {
     
     private func obligatoryParams(with current: [String:Any]) -> [String:Any] {
         var params = current
+        params["units"] = AppData.unitSystem.rawValue
         params["appid"] = API.key
-        params["units"] = "metric"
         return params
     }
 }

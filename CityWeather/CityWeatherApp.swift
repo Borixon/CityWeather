@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct CityWeatherApp: App {
+    
+    @StateObject private var router = AppRouter()
+    @StateObject private var model = WeatherModel()
+    
     var body: some Scene {
         WindowGroup {
-            CityWeatherView()
+            WeatherView()
+                .environmentObject(model)
+                .environmentObject(router)
         }
     }
 }

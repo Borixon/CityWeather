@@ -9,7 +9,7 @@ import Foundation
 
 struct NSWeatherStamp: Codable {
     
-    var time: Int32
+    var time: TimeInterval
     var timeReadable: String
     var weather: [NSWeatherReadable]
     var athmosphere: NSAthmosphere

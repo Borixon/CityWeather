@@ -10,6 +10,6 @@ import Foundation
 struct NSCity: Codable {
     var name: String
     var country: String
-    var sunrise: Int32
-    var sunset: Int32
+    var sunrise: TimeInterval
+    var sunset: TimeInterval
 }
