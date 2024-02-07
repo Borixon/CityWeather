@@ -10,7 +10,9 @@ import Foundation
 struct CityHeaderData {
     
     internal let city: String
+    internal let time: TimeInterval
     internal let castDescription: String?
+    internal let icon: String?
     internal let temperature: Float?
     internal let sensedTemperature: Float?
     internal let sunrise: TimeInterval
@@ -21,6 +23,10 @@ struct CityHeaderData {
             format: "%.1f %@",
             temperature ?? 0,
             AppData.unitSystem.tempUnit)
+    }
+    
+    var timeDescription: String {
+        "\(time.format(.time)) \(time.format(.date))"
     }
     
     var description: String? {

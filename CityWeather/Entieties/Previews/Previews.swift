@@ -17,7 +17,8 @@ struct Previews {
                     timeReadable: "2024",
                     weather: [.init(
                         main: "Smog",
-                        description: "Smog is dense today")],
+                        description: "Smog is dense today",
+                        icon: "")],
                     athmosphere: .init(
                         temperature: 15,
                         tempSensed: 10,
@@ -38,7 +39,8 @@ struct Previews {
                     timeReadable: "2024",
                     weather: [.init(
                         main: "Smog",
-                        description: "Smog is dense today")],
+                        description: "Smog is dense today",
+                        icon: "")],
                     athmosphere: .init(
                         temperature: 14,
                         tempSensed: 12,

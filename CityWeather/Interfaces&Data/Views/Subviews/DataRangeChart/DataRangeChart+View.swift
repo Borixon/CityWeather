@@ -24,10 +24,12 @@ extension DataRangeChart: View {
             .padding(.top, 8)
             Chart {
                 ForEach(Array(data.enumerated()), id:\.offset) { i, entry in
+                    // TODO: Check for float values
                     BarMark(
                         x: .value("i", i),
                         yStart: .value("", entry.min),
-                        yEnd: .value("", entry.max))
+                        yEnd: .value("", entry.max),
+                        width: Marks.dimension)
                     .foregroundStyle(.white)
                     .annotation(
                         position: .bottom,

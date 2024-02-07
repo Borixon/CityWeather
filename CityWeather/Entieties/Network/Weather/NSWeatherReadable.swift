@@ -10,4 +10,5 @@ import Foundation
 struct NSWeatherReadable: Codable {
     var main: String
     var description: String
+    var icon: String
 }

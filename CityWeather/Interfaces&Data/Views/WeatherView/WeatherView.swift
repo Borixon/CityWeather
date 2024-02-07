@@ -10,36 +10,33 @@ import RxSwift
 
 struct WeatherView: View {
     
+    @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject internal var model: WeatherModel
     @EnvironmentObject internal var router: AppRouter
     
+    @State internal var iOrientation = UIDevice.current.orientation
+    
     var body: some View {
-        NavigationView {
-            Group {
-                if UIDevice().userInterfaceIdiom == .phone {
-                    iPhoneView
-                } else {
-                    iPadView
-                }
-            }
-            .fullScreenCover(
-                isPresented: $router.isWeatherDetailsPresented) {
-                    WeatherDetailsView(selectedTime: model.selectedTime!)
-                        .background(
-                            Image("Background0")
-                                .resizable()
-                                .edgesIgnoringSafeArea(.all)
-                                .aspectRatio(contentMode: .fill))
+        Group {
+            if UIDevice().userInterfaceIdiom == .phone {
+                iPhoneView
+            } else {
+                iPadView
             }
         }
         .onAppear() {
+            NotificationCenter.default.addObserver(
+                forName: UIDevice.orientationDidChangeNotification,
+                object: nil,
+                queue: .main) { _ in
+                    setDeviceOrientation()
+                }
+            setDeviceOrientation()
             model.onStart()
         }
     }
     
-    @ViewBuilder private var iPadView: some View {
-        VStack {
-            
-        }
+    private func setDeviceOrientation() {
+        iOrientation = UIDevice.current.orientation
     }
 }

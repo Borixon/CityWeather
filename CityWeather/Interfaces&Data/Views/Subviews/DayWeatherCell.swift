@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-struct SpecificDayWeatherCell: View {
+struct DayWeatherCell: View {
     
     let weatherData: DayShortData
-    let chevron: Bool = true
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -27,10 +26,8 @@ struct SpecificDayWeatherCell: View {
                 subtitle: NSLocalizedString("temperature", comment: ""))
             Spacer()
             
-            if chevron{
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.white)
-            }
+            Image(systemName: "chevron.right")
+                .foregroundColor(.white)
         }
         .frame(maxWidth: .infinity)
         .padding(Margins.standard)

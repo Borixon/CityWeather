@@ -28,8 +28,8 @@ extension DataChart: View {
                         BarMark(
                             x: .value("\(i)", i),
                             yStart: .value("s", start),
-                            yEnd: .value("v", Int(entry.value)))
-                        .lineStyle(StrokeStyle(lineWidth: 6, lineCap: .round))
+                            yEnd: .value("v", Int(entry.value)),
+                            width: Marks.dimension)
                         .foregroundStyle(.white)
                         .annotation(
                             position: .bottom,
