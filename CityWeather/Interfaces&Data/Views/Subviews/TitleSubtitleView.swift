@@ -15,10 +15,12 @@ struct TitleSubtitleView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(title)
+                .foregroundStyle(.white)
                 .font(Font.system(
                     size: 18,
                     weight: .light))
             Text(subtitle)
+                .foregroundStyle(.white)
                 .font(Font.system(
                     size: 12,
                     weight: .light))

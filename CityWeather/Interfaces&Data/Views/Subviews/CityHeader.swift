@@ -14,6 +14,7 @@ struct CityHeader: View {
     var body: some View {
         VStack (alignment: .center) {
             Text(viewData.city)
+                .foregroundStyle(.white)
                 .padding(.top, 16)
                 .padding(.horizontal, 32)
                 .font(Font.system(
@@ -22,17 +23,20 @@ struct CityHeader: View {
             
             if let descritpion = viewData.description {
                 Text(descritpion)
+                    .foregroundStyle(.white)
                     .padding(.top, 0)
                     .padding(.bottom, 4)
             }
             
             Text(viewData.temperatureText)
+                .foregroundStyle(.white)
                 .padding(.horizontal, 32)
                 .font(Font.system(
                     size: 28,
                     weight: .light))
             
             Text(viewData.sensedTempText)
+                .foregroundStyle(.white)
                 .padding(.top, 8)
                 .padding(.horizontal, 32)
                 .font(Font.system(
@@ -42,11 +46,13 @@ struct CityHeader: View {
             HStack(spacing: 32) {
                 VStack {
                     Text(viewData.sunriseText)
+                        .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                         .fontWeight(.light)
                 }
                 VStack {
                     Text(viewData.sunsetText)
+                        .foregroundStyle(.white)
                         .multilineTextAlignment(.center)
                         .fontWeight(.light)
                 }
@@ -58,7 +64,7 @@ struct CityHeader: View {
                 trailing: 32))
         }
         .frame(maxWidth: .infinity)
-        .background(Background.standard)
+        .background(Background.box)
     }
 }
 

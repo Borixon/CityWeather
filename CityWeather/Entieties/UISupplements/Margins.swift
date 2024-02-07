@@ -17,8 +17,8 @@ struct Margins {
 }
 
 struct Background {
-    static var standard: some View { 
+    static var box: some View { 
         RoundedRectangle(cornerRadius: 16)
-            .foregroundColor(Color.init(white: 0.95))
+            .foregroundColor(Color("BoxColor"))
     }
 }

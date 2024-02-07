@@ -7,18 +7,18 @@
 
 import Foundation
 
+enum DateFormats: String {
+    case time = "HH:mm"
+    case date = "dd.MM.yyyy"
+    case dayDate = "dd.MM"
+    case dayShort = "EEE"
+    case dayName = "EEEE"
+}
+
 extension TimeInterval {
     
-    func timeText(for calendar: Calendar = .current) -> String {
-        getDateString(format: "HH:mm")
-    }
-    
-    func dayText(for calendar: Calendar = .current) -> String {
-        getDateString(format: "EEE")
-    }
-    
-    func dateText(for calendar: Calendar = .current) -> String {
-        getDateString(format: "dd.MM.yyyy")
+    func format(_ format: DateFormats, for calendar: Calendar = .current) -> String {
+        getDateString(format: format.rawValue)
     }
     
     private func getDateString(format: String) -> String {

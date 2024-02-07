@@ -11,27 +11,49 @@ struct Previews {
     
     static var nsWeather: NSCityWeather {
         .init(
-            list: [.init(
-                time: 177777777,
-                timeReadable: "2024",
-                weather: [.init(
-                    main: "Smog",
-                    description: "Smog is dense today")],
-                athmosphere: .init(
-                    temperature: 15,
-                    tempSensed: 10,
-                    tempMin: 10,
-                    tempMax: 15,
-                    pressure: 1200,
-                    humidity: 30),
-                clouds: .init(
-                    coverage: 60),
-                wind: .init(
-                    speed: 10,
-                    gust: 23,
-                    degree: 123),
-                precipation: 0.3,
-                visibility: 5000)],
+            list: [
+                NSWeatherStamp(
+                    time: 177777777,
+                    timeReadable: "2024",
+                    weather: [.init(
+                        main: "Smog",
+                        description: "Smog is dense today")],
+                    athmosphere: .init(
+                        temperature: 15,
+                        tempSensed: 10,
+                        tempMin: 10,
+                        tempMax: 15,
+                        pressure: 1200,
+                        humidity: 30),
+                    clouds: .init(
+                        coverage: 60),
+                    wind: .init(
+                        speed: 10,
+                        gust: 23,
+                        degree: 123),
+                    precipation: 0.3,
+                    visibility: 5000),
+                NSWeatherStamp(
+                    time: 177780000,
+                    timeReadable: "2024",
+                    weather: [.init(
+                        main: "Smog",
+                        description: "Smog is dense today")],
+                    athmosphere: .init(
+                        temperature: 14,
+                        tempSensed: 12,
+                        tempMin: 11,
+                        tempMax: 16,
+                        pressure: 1205,
+                        humidity: 33),
+                    clouds: .init(
+                        coverage: 65),
+                    wind: .init(
+                        speed: 10,
+                        gust: 23,
+                        degree: 123),
+                    precipation: 0.3,
+                    visibility: 5000)],
             city: .init(
                 name: "Kraków",
                 country: "PL",

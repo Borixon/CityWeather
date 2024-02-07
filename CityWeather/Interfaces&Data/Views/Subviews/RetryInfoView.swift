@@ -16,7 +16,10 @@ struct RetryInfoView: View {
     
     var body: some View {
         Text("somethingWrong")
+            .foregroundStyle(.white)
+            .multilineTextAlignment(.center)
         Text("retryTap")
+            .foregroundStyle(.white)
             .onTapGesture {
                 closure()
             }

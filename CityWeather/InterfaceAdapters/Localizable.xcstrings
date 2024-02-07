@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "%lld" : {
+
+    },
     "avgPress" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -18,7 +24,10 @@
         }
       }
     },
-    "Back" : {
+    "e" : {
+
+    },
+    "i" : {
 
     },
     "loading" : {
@@ -53,6 +62,9 @@
           }
         }
       }
+    },
+    "s" : {
+
     },
     "sensedTemperature" : {
       "extractionState" : "manual",
@@ -139,7 +151,7 @@
         }
       }
     },
-    "We are here!" : {
+    "v" : {
 
     }
   },

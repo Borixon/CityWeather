@@ -16,6 +16,7 @@ final class WeatherModel: ObservableObject {
     private let weatherService = NSWeather()
     
     @Published var cityName: String = "Paris"
+    @Published var selectedTime: TimeInterval?
     @Published var isLoading: Bool = false
     @Published var weather: NSCityWeather?
     
@@ -28,7 +29,7 @@ final class WeatherModel: ObservableObject {
     }
     
     func didSelectDate(_ date: TimeInterval) {
-        
+        selectedTime = date
     }
     
     private func resolveWeather(for city: String) {

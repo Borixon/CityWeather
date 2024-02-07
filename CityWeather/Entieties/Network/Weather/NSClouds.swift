@@ -15,3 +15,9 @@ struct NSClouds: Codable {
         case coverage = "all"
     }
 }
+
+extension Int8 {
+    var asInt: Int {
+        Int(self)
+    }
+}

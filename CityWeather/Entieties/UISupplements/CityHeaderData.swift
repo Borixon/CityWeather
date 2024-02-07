@@ -38,12 +38,12 @@ struct CityHeaderData {
     var sunriseText: String {
         String(
             format: String(localized: "sunrise") + "\n%@",
-            sunrise.timeText())
+            sunrise.format(.time))
     }
     
     var sunsetText: String {
         String(
             format: String(localized: "sunset") + "\n%@",
-            sunset.timeText())
+            sunset.format(.time))
     }
 }

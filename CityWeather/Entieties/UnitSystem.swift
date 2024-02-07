@@ -31,4 +31,13 @@ enum UnitSystem: String {
             "PSI"
         }
     }
+    
+    var distanceUnit: String {
+        switch self {
+        case .standard, .metric:
+            "meter"
+        case .imperial:
+            "feet"
+        }
+    }
 }

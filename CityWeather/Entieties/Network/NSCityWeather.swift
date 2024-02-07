@@ -13,14 +13,16 @@ struct NSCityWeather: Codable {
 }
 
 extension NSCityWeather {
-    
-    var daysData: Array<DayShortData> {
-        let groupedData = Dictionary(
+  
+    var groupedData: [Date : [NSWeatherStamp]] {
+        Dictionary(
             grouping: list,
             by: { Calendar.current.startOfDay(
                 for: Date(timeIntervalSince1970: $0.time))
             })
-        
+    }
+    
+    var daysData: Array<DayShortData> {
         let mapped: [DayShortData?] = groupedData.keys.map({
             if let time = groupedData[$0]?.map({ $0.time }).first,
                let atmo = groupedData[$0]?.map({ $0.athmosphere }),
@@ -32,8 +34,8 @@ extension NSCityWeather {
                 return DayShortData(
                     id: time,
                     time: time,
-                    day: time.dayText(),
-                    date: time.dateText(),
+                    day: time.format(.dayShort),
+                    date: time.format(.date),
                     tempMin: min,
                     tempMax: max, 
                     pressure: Int16(averagePressure))
@@ -50,13 +52,55 @@ extension NSCityWeather {
     }
     
     var headerData: CityHeaderData {
-        print(self)
-        return .init(
+        .init(
             city: city.name,
             castDescription: list.first?.weather.first?.description,
             temperature: list.first?.athmosphere.temperature,
             sensedTemperature: list.first?.athmosphere.tempSensed,
             sunrise: city.sunrise,
             sunset: city.sunset)
+    }
+    
+    func data24h(_ selectedTime: TimeInterval) -> [NSWeatherStamp] {
+        list.filter {
+            $0.time >= selectedTime &&
+            $0.time < selectedTime + (24*60*60)
+        }
+    }
+    
+    func clouds24h(_ timeInterval: TimeInterval) -> [DataValue<Int>] {
+        data24h(timeInterval)
+            .map({ DataValue(
+                value: $0.clouds.coverage.asInt,
+                annotation: "\($0.time.format(.time))")})
+    }
+    
+    func visibility24h(_ timeInterval: TimeInterval) -> [DataValue<Int>] {
+        data24h(timeInterval)
+            .map({ DataValue(
+                value: Int($0.visibility),
+                annotation: "\($0.time.format(.time))")})
+    }
+    
+    func precipation24h(_ timeInterval: TimeInterval) -> [DataValue<Int>] {
+        data24h(timeInterval)
+            .map({ DataValue(
+                value: Int($0.precipation * 100.0), // * 100 is added because range is normalized (0.0...1.0)
+                annotation: "\($0.time.format(.time))")})
+    }
+    
+    func pressure24h(_ timeInterval: TimeInterval) -> [DataValue<Int>] {
+        data24h(timeInterval)
+            .map({ DataValue(
+                value: Int($0.athmosphere.pressure),
+                annotation: "\($0.time.format(.time))")})
+    }
+    
+    func temperatures24h(_ timeInterval: TimeInterval) -> [MinMax<Int>] {
+        data24h(timeInterval)
+            .map({ MinMax(
+                min: Int($0.athmosphere.tempMin),
+                max: Int($0.athmosphere.tempMax),
+                annotation: "\($0.time.format(.time))")})
     }
 }
