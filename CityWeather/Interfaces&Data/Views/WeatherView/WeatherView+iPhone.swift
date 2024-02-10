@@ -21,7 +21,7 @@ extension WeatherView {
                     
                 } else {
                     RetryInfoView() {
-                        model.getWeather()
+                        model.updateWeather()
                     }
                 }
             }
@@ -45,7 +45,7 @@ extension WeatherView {
         }
     }
     
-    @ViewBuilder private func contentView(_ data: NSCityWeather) -> some View {
+    @ViewBuilder private func contentView(_ data: DBWeather) -> some View {
         Group {
             CityHeader(viewData: data.cityData())
                 .padding(.top,8)

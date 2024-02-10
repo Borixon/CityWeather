@@ -13,7 +13,7 @@ struct CityHeader: View {
     
     var body: some View {
         VStack (alignment: .center) {
-            Text(viewData?.city ?? "")
+            Text(viewData?.city ?? "-")
                 .foregroundStyle(.white)
                 .padding(.top, 16)
                 .padding(.horizontal, 32)
@@ -21,13 +21,13 @@ struct CityHeader: View {
                     size: 38,
                     weight: .light))
             
-            Text(viewData?.timeDescription ?? "")
+            Text(viewData?.timeDescription ?? "-")
                 .font(Font.system(size: 12))
                 .foregroundStyle(.white)
                 .padding(.top, 0)
                 .padding(.bottom, 4)
             
-            Text(viewData?.temperatureText ?? "")
+            Text(viewData?.temperatureText ?? "-")
                 .foregroundStyle(.white)
                 .minimumScaleFactor(0.5)
                 .padding(.horizontal, 32)
@@ -36,11 +36,19 @@ struct CityHeader: View {
                     size: 28,
                     weight: .light))
             
-            if let descritpion = viewData?.description {
-                Text(descritpion)
+            HStack(spacing: 8) {
+                Text(viewData?.description ?? "-")
                     .foregroundStyle(.white)
-                    .padding(.bottom, 4)
+                AsyncImage(
+                    url: API.iconUrl(viewData?.icon),
+                    content: { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 48, height: 48)
+                    },
+                    placeholder: { Text("") })
             }
+            .padding(.bottom, 4)
             
             Text(viewData?.sensedTempText ?? "")
                 .foregroundStyle(.white)

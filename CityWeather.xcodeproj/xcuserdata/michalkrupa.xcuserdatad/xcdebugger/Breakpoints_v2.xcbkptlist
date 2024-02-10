@@ -30,8 +30,8 @@
             filePath = "CityWeather/Interfaces&amp;Data/Views/WeatherView/WeatherView+iPad.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "dayList"
             landmarkType = "24">
             <Locations>
@@ -93,8 +93,8 @@
             filePath = "CityWeather/Interfaces&amp;Data/Views/WeatherView/WeatherView+iPad.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "dayList"
             landmarkType = "24">
             <Locations>
@@ -127,6 +127,54 @@
                   startingLineNumber = "67"
                   endingLineNumber = "67"
                   offsetFromSymbolStart = "196">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3346F712-D3A3-480B-8809-94C36455B5EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CityWeather/Interfaces&amp;Data/Network/NetworkServiceProtocol.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "requestData(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3346F712-D3A3-480B-8809-94C36455B5EA - 2b35b2caa08e28a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; () in closure #1 (RxSwift.AnyObserver&lt;&#x3c4;_1_0&gt;) -&gt; RxSwift.Disposable in CityWeather.NetworkServiceProtocol.requestData&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Decodable&gt;(&#x3c4;_0_0.T) -&gt; RxSwift.Observable&lt;&#x3c4;_1_0&gt;"
+                  moduleName = "CityWeather"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michalkrupa/Documents/Projekty/ios/CityWeather/CityWeather/Interfaces&amp;Data/Network/NetworkServiceProtocol.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "3346F712-D3A3-480B-8809-94C36455B5EA - d748ba1d39b79f99"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.Error) -&gt; () in closure #1 (RxSwift.AnyObserver&lt;&#x3c4;_1_0&gt;) -&gt; RxSwift.Disposable in CityWeatherTests.NetworkServiceProtocol.requestData&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Decodable&gt;(&#x3c4;_0_0.T) -&gt; RxSwift.Observable&lt;&#x3c4;_1_0&gt;"
+                  moduleName = "CityWeatherTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michalkrupa/Documents/Projekty/ios/CityWeather/CityWeather/Interfaces&amp;Data/Network/NetworkServiceProtocol.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "92">
                </Location>
             </Locations>
          </BreakpointContent>

@@ -16,22 +16,3 @@ struct Margins {
         bottom: 8,
         trailing: 16)
 }
-
-struct Background {
-    static var box: some View { 
-        RoundedRectangle(cornerRadius: 16)
-            .foregroundColor(Color("BoxColor"))
-    }
-    
-    static var selectedBox: some View {
-        RoundedRectangle(cornerRadius: 16)
-            .foregroundColor(Color("BoxColorSelected"))
-    }
-}
-
-struct Marks {
-    static var dimension: MarkDimension {
-        let small = UIDevice.current.userInterfaceIdiom == .phone
-        return MarkDimension(floatLiteral: small ? 6 : 16)
-    }
-}

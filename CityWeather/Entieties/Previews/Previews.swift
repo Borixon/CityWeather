@@ -9,7 +9,7 @@ import Foundation
 
 struct Previews {
     
-    static var nsWeather: NSCityWeather {
+    static var nsWeather: NSWeather {
         .init(
             list: [
                 NSWeatherStamp(
@@ -61,6 +61,10 @@ struct Previews {
                 country: "PL",
                 sunrise: 177777777,
                 sunset: 177779777))
+    }
+    
+    static var dbWeather: DBWeather {
+        .init(nsWeather)
     }
     
     static var dayShortData: DayShortData {

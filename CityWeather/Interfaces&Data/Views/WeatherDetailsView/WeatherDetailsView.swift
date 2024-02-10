@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Charts
-import SwiftUICharts
 
 struct WeatherDetailsView {
     
@@ -84,9 +83,9 @@ extension WeatherDetailsView: View {
 
 #Preview {
     if #available(iOS 17.0, *) {
-        WeatherDetailsView()
+        WeatherView()
             .environment(WeatherModel.previewModel)
     } else {
-        WeatherDetailsView()
+        WeatherView()
     }
 }

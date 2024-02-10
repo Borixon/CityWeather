@@ -9,20 +9,29 @@ import SwiftUI
 
 extension WeatherView {
 
-
     @ViewBuilder internal var iPadView: some View {
-        if !model.isLoading, model.weather != nil {
-            contentView
-                .padding(.horizontal, 16)
-            
-        } else if model.isLoading {
-            LoadingView()
-            
-        } else {
-            RetryInfoView() {
-                model.getWeather()
+        Group {
+            if !model.isLoading, model.weather != nil {
+                contentView
+                    .padding(Margins.standard)
+                
+            } else if model.isLoading {
+                LoadingView()
+                
+            } else {
+                RetryInfoView() {
+                    model.updateWeather()
+                }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            // TODO: Use swiftgen in order to choose images from structs
+            Image("Background1")
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+                .aspectRatio(contentMode: .fill)
+        )
     }
     
     @ViewBuilder private var contentView: some View {
@@ -39,13 +48,6 @@ extension WeatherView {
                 }
             }
         }
-        .background(
-            // TODO: Use swiftgen in order to choose images from structs
-            Image("Background1")
-                .resizable()
-                .edgesIgnoringSafeArea(.all)
-                .aspectRatio(contentMode: .fill)
-        )
     }
     
     @ViewBuilder private var dayListContent: some View {

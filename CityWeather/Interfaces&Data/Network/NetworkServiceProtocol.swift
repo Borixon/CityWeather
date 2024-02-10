@@ -12,7 +12,7 @@ import Moya
 
 /* 
  Main interface for network services
- 'NS' prefix shall be applied for every service that conforms to this protocl
+ 'NS' prefix shall be applied for every entity that is returned by any provider
  */
 protocol NetworkServiceProtocol: AnyObject {
     associatedtype T: TargetType

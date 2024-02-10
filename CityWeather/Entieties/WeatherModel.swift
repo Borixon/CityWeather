@@ -13,12 +13,19 @@ import SwiftUI
 final class WeatherModel: ObservableObject {
     
     private let bag: DisposeBag = .init()
-    private let weatherService = NSWeather()
+    private let city: String = "Paris"
+    private let webService: WeatherService
+    private let repository: WeatherRepository
     
-    @Published var cityName: String = "Paris"
-    @Published var selectedTime: TimeInterval?
+    @Published var selectedTime: TimeInterval? = nil
     @Published var isLoading: Bool = false
-    @Published var weather: NSCityWeather?
+    @Published var weather: DBWeather? = nil
+ 
+    init(webService: WeatherService = .init(),
+         repository: WeatherRepository = .init()) {
+        self.webService = webService
+        self.repository = repository
+    }
     
     var temperatureDetails: [MinMax<Int>] {
         weather?.temperatures24h(selectedTime) ?? []
@@ -53,19 +60,29 @@ final class WeatherModel: ObservableObject {
         weather?.pressure24h(selectedTime) ?? []
     }
     
-    func onStart() {
-        resolveWeather(for: cityName)
+    
+    func updateWeather() {
+        isLoading = true
+        resolveWeather(for: city)
+            .subscribe(onNext: { [unowned self] data in
+                self.handleDataReceive(data)
+                
+            }, onError: {  [unowned self] _ in
+                self.handleDataReceive(nil)
+            })
+            .disposed(by: bag)
     }
     
-    func getWeather() {
-        downloadWeather(for: cityName)
+    func didSelectDate(_ date: TimeInterval) {
+        selectedTime = date
     }
     
-    /** 
+    
+    /**
      This function returns date (as time interval) that is closest to current time
      and moved in time, for calculated number of days
      */
-    func getCorrespondingTime(_ time: TimeInterval?) -> TimeInterval {
+    private func getCorrespondingTime(_ time: TimeInterval?) -> TimeInterval {
         guard let time = time,
               let firstDay = weather?.earliestTime else {
             return 0
@@ -74,45 +91,34 @@ final class WeatherModel: ObservableObject {
         return firstDay + (Double(days) * 24.0 * 60.0 * 60.0)
     }
     
-    func didSelectDate(_ date: TimeInterval) {
-        selectedTime = date
+    private func resolveWeather(for city: String) -> Observable<DBWeather> {
+        return Observable.create { [unowned self] observer in
+            self.webService.weather(for: city)
+                .flatMap { data -> Observable<Void> in
+                    return self.repository.save(data)
+                }
+                .flatMap { _ -> Observable<DBWeather> in
+                    return self.repository.retrive()
+                }
+                .subscribe(
+                    onNext: { data in
+                        observer.onNext(data)
+                        observer.onCompleted()
+                        
+                    }, onError: { error in
+                        observer.onError(error)
+                    })
+                .disposed(by: self.bag)
+            return Disposables.create()
+        }
     }
     
-    private func resolveWeather(for city: String) {
-        /*
-         if DB.weather == nil ||
-         DB.weather.cityName != city ||
-         DB.weather.updateTime == .isPassed {
-         getWeatherFor(city)
-         
-         } else {
-         weather = DB.weather
-         }
-         */
-        
-        downloadWeather(for: city)
-    }
-    
-    private func downloadWeather(for city: String) {
-        isLoading = true
-        weatherService.weather(for: city)
-            .subscribe(onNext: { [unowned self] data in
-                handleDataReceive(data)
-            }, onError: { [unowned self] error in
-                handleDataReceive(nil)
-            })
-            .disposed(by: bag)
-    }
-    
-    private func handleDataReceive(_ data: NSCityWeather?) {
+    private func handleDataReceive(_ data: DBWeather?) {
         weather = data
         isLoading = false
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             selectedTime = weather?.earliestTime
         }
-        
-        // TODO: Save to DB
     }
 }
-

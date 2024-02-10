@@ -15,6 +15,7 @@ enum DateFormats: String {
     case dayName = "EEEE"
 }
 
+// TODO: To tests
 extension TimeInterval {
     
     func format(_ format: DateFormats, for calendar: Calendar = .current) -> String {
