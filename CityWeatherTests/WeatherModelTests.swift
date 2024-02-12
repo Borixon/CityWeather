@@ -11,13 +11,11 @@ import XCTest
 
 @testable import CityWeather
 
-// TODO: write more tests
+
 final class ModelTests: XCTestCase {
 
     typealias T = WeatherService.T
    
-    override var continueAfterFailure: Bool = true
-    
     // TODO: update - not rich yet
     @MainActor func testRichModel() throws {
         
@@ -32,7 +30,9 @@ final class ModelTests: XCTestCase {
         XCTAssertNotNil(sut.selectedCityData)
     }
     
-    // TODO: update
+    /**
+     SelectedTime should not be nil for pads
+     */
     @MainActor func testSelectedTimePad() throws {
         guard UIDevice.current.userInterfaceIdiom == .pad else {
             return
@@ -47,7 +47,10 @@ final class ModelTests: XCTestCase {
         XCTAssertNotNil(sut.selectedCityData)
     }
     
-    // TODO: update
+    /**
+     Selecting time on phones should always return some value,
+     in this case it shoud be earliest returned date
+     */
     @MainActor func testSelectedTimePhone() throws {
         guard UIDevice.current.userInterfaceIdiom == .phone else {
             return
