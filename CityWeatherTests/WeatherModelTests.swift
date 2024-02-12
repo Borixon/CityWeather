@@ -11,12 +11,14 @@ import XCTest
 
 @testable import CityWeather
 
+// TODO: write more tests
 final class ModelTests: XCTestCase {
 
     typealias T = WeatherService.T
    
     override var continueAfterFailure: Bool = true
     
+    // TODO: update - not rich yet
     @MainActor func testRichModel() throws {
         
         let service = service(for: "weatherParis", code: 200)
@@ -30,6 +32,7 @@ final class ModelTests: XCTestCase {
         XCTAssertNotNil(sut.selectedCityData)
     }
     
+    // TODO: update
     @MainActor func testSelectedTimePad() throws {
         guard UIDevice.current.userInterfaceIdiom == .pad else {
             return
@@ -44,6 +47,7 @@ final class ModelTests: XCTestCase {
         XCTAssertNotNil(sut.selectedCityData)
     }
     
+    // TODO: update
     @MainActor func testSelectedTimePhone() throws {
         guard UIDevice.current.userInterfaceIdiom == .phone else {
             return
@@ -59,6 +63,7 @@ final class ModelTests: XCTestCase {
         XCTAssertNotNil(sut.selectedCityData)
     }
     
+    // TODO: move to utils
     private func targetResponse(code: Int, responseFile: String) -> (ModelTests.T) -> Endpoint{
         return { (target: T) -> Endpoint in
             return Endpoint(
@@ -84,6 +89,7 @@ final class ModelTests: XCTestCase {
     }
 }
 
+//TODO: Move to utils?
 struct JSON {
     
     let name: String

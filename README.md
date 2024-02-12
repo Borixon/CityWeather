@@ -1,5 +1,6 @@
 ## Hello folks!
 
-I invite you to familiarize yourself with the CityWeather project. It is a mobile application for iOS devices that was written reactively using RxSwift and SwiftUI. Due to the technology used and its simplicity, I used the controversial MV pattern, i.e. the Model-View pattern.
+This is a simple iOS and iPadOS application built with SwiftUI and RxSwift. Because of its simplicity I have decided to use very uncommon pattern of MV (yes, Model-View). In this case the "WeatherModel" plays main role for apple devices. 
 
-The main data source is the WeatherModel, which is responsible for providing data for the entire application. For iPhone devices there are two views, main and detailed. A separate main view has been written for iPads. It should be mentioned that both of them use common components
+Michał Krupa
+michal.krupa.dev@gmail.com

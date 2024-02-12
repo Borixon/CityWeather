@@ -17,14 +17,25 @@ final class WeatherModel: ObservableObject {
     private let webService: WeatherService
     private let repository: WeatherRepository
     
+    private let orientObserver: OrientationObserver = .init()
+    
     @Published var selectedTime: TimeInterval? = nil
     @Published var isLoading: Bool = false
     @Published var weather: DBWeather? = nil
- 
+    @Published var isLandscape: Bool? = nil
+    
     init(webService: WeatherService = .init(),
          repository: WeatherRepository = .init()) {
         self.webService = webService
         self.repository = repository
+        
+        orientObserver
+            .publisher
+            .filter({ $0 != .faceUp && $0 != .faceDown })
+            .subscribe(onNext: {
+                self.isLandscape = $0 == .landscapeRight || $0 == .landscapeLeft
+            })
+            .disposed(by: bag)
     }
     
     var temperatureDetails: [MinMax<Int>] {
@@ -78,10 +89,6 @@ final class WeatherModel: ObservableObject {
     }
     
     
-    /**
-     This function returns date (as time interval) that is closest to current time
-     and moved in time, for calculated number of days
-     */
     private func getCorrespondingTime(_ time: TimeInterval?) -> TimeInterval {
         guard let time = time,
               let firstDay = weather?.earliestTime else {

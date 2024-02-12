@@ -16,8 +16,6 @@ struct WeatherView: View {
     @EnvironmentObject internal var model: WeatherModel
     @EnvironmentObject internal var router: AppRouter
     
-    @State internal var iOrientation = UIDevice.current.orientation
-    
     var body: some View {
         Group {
             if UIDevice().userInterfaceIdiom == .phone {
@@ -26,32 +24,14 @@ struct WeatherView: View {
                 iPadView
             }
         }
-        .onAppear() {
-            setupAppOrientaionNotification()
-        }
         .onChange(of: scenePhase) { phase in
             handleScenePhase(phase)
         }
-    }
-    
-    private func setupAppOrientaionNotification() {
-        NotificationCenter.default.addObserver(
-            forName: UIDevice.orientationDidChangeNotification,
-            object: nil,
-            queue: .main) { _ in
-                setDeviceOrientation()
-            }
-        setDeviceOrientation()
     }
     
     private func handleScenePhase(_ phase: ScenePhase) {
         if phase == .active {
             model.updateWeather()
         }
-    }
-    
-    // TODO: Check flat orientation
-    private func setDeviceOrientation() {
-        iOrientation = UIDevice.current.orientation
     }
 }

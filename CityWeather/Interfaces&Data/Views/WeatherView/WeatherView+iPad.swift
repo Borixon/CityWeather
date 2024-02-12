@@ -36,7 +36,7 @@ extension WeatherView {
     
     @ViewBuilder private var contentView: some View {
         Group {
-            if isLandscape {
+            if model.isLandscape == true {
                 HStack {
                     details
                     dayList
@@ -62,8 +62,8 @@ extension WeatherView {
     }
     
     @ViewBuilder private var dayList: some View {
-        ScrollView(isLandscape ? .vertical : .horizontal) {
-            if isLandscape {
+        ScrollView(model.isLandscape == true ? .vertical : .horizontal) {
+            if model.isLandscape == true {
                 LazyVStack {
                     dayListContent
                 }
@@ -116,9 +116,5 @@ extension WeatherView {
                     step: 10)
             }
         }
-    }
-    
-    private var isLandscape: Bool {
-        iOrientation == .landscapeLeft || iOrientation == .landscapeRight
     }
 }

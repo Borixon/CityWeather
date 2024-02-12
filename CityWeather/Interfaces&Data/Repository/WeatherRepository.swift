@@ -7,6 +7,5 @@
 
 import Foundation
 
-final class WeatherRepository: Repository<NSWeather> {
-    
-}
+typealias WeatherRepository = Repository<NSWeather>
+
