@@ -10,7 +10,7 @@ import Foundation
 extension WeatherModel: Observable {
     static var previewModel: WeatherModel {
         let model = WeatherModel()
-        model.weather = Previews.dbWeather
+        model.data.weather = Previews.dbWeather
         return model
     }
 }

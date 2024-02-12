@@ -12,7 +12,7 @@ extension WeatherView {
     @ViewBuilder internal var iPhoneView: some View {
         NavigationView {
             VStack {
-                if !model.isLoading, let data = model.weather {
+                if !model.isLoading, let data = model.data.weather {
                     contentView(data)
                         .padding(.horizontal, 16)
                     

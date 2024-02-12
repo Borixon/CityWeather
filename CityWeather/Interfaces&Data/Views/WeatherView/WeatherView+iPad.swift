@@ -11,7 +11,7 @@ extension WeatherView {
 
     @ViewBuilder internal var iPadView: some View {
         Group {
-            if !model.isLoading, model.weather != nil {
+            if !model.isLoading, model.data.weather != nil {
                 contentView
                     .padding(Margins.standard)
                 
@@ -19,9 +19,7 @@ extension WeatherView {
                 LoadingView()
                 
             } else {
-                RetryInfoView() {
-                    model.updateWeather()
-                }
+                retryView
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -32,6 +30,12 @@ extension WeatherView {
                 .edgesIgnoringSafeArea(.all)
                 .aspectRatio(contentMode: .fill)
         )
+    }
+    
+    @ViewBuilder private var retryView: some View {
+        RetryInfoView() {
+            model.updateWeather()
+        }
     }
     
     @ViewBuilder private var contentView: some View {
@@ -51,13 +55,19 @@ extension WeatherView {
     }
     
     @ViewBuilder private var dayListContent: some View {
-        ForEach(model.weather!.daysData, id: \.id) { item in
-            SmallDayWeatherCell(
-                weatherData: item,
-                selectedTime: model.selectedTime)
-            .onTapGesture {
-                model.didSelectDate(item.time)
+        if let daysData = model.data.weather?.daysData {
+            ForEach(daysData, id: \.id) { item in
+                SmallDayWeatherCell(
+                    weatherData: item,
+                    selectedTime: model.data.selectedTime)
+                .onTapGesture {
+                    model.didSelectDate(item.time)
+                    model.objectWillChange.send()
+                }
             }
+            
+        } else {
+            retryView
         }
     }
     
@@ -81,37 +91,37 @@ extension WeatherView {
         VStack {
             HStack {
                 CityHeader(
-                    viewData: model.selectedCityData)
+                    viewData: model.data.selectedCityData)
                 
                 DataRangeChart(
                     title: "Temperatures for 24 hours in \(AppData.unitSystem.tempUnit)",
-                    data: model.temperatureDetails,
+                    data: model.data.temperatureDetails,
                     margin: 1,
                     step: 1)
             }
             HStack {
                 DataChart(
                     title: "Cloud coverage in '%'",
-                    data: model.cloudsDetails,
+                    data: model.data.cloudsDetails,
                     max: 100,
                     step: 10)
                 
                 DataChart(
                     title: "Pressure in \(AppData.unitSystem.pressureUnit)",
-                    data: model.pressureDetails,
-                    start: model.pressureMinimum,
+                    data: model.data.pressureDetails,
+                    start: model.data.pressureMinimum,
                     margin: 2,
                     step: 2)
             }
             HStack {
                 DataChart(
                     title: "Visibility in \(AppData.unitSystem.distanceUnit)s",
-                    data: model.visibilityDetails,
-                    step: model.visibilityStep)
+                    data: model.data.visibilityDetails,
+                    step: model.data.visibilityStep)
                 
                 DataChart(
                     title: "Precipation probability in '%'",
-                    data: model.precipationDetails,
+                    data: model.data.precipationDetails,
                     max: 100,
                     step: 10)
             }

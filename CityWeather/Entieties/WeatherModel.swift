@@ -19,58 +19,16 @@ final class WeatherModel: ObservableObject {
     
     private let orientObserver: OrientationObserver = .init()
     
-    @Published var selectedTime: TimeInterval? = nil
     @Published var isLoading: Bool = false
-    @Published var weather: DBWeather? = nil
     @Published var isLandscape: Bool? = nil
+    @Published var data: WeatherModelData = .init()
     
     init(webService: WeatherService = .init(),
          repository: WeatherRepository = .init()) {
         self.webService = webService
         self.repository = repository
-        
-        orientObserver
-            .publisher
-            .filter({ $0 != .faceUp && $0 != .faceDown })
-            .subscribe(onNext: {
-                self.isLandscape = $0 == .landscapeRight || $0 == .landscapeLeft
-            })
-            .disposed(by: bag)
+        setupObserver()
     }
-    
-    var temperatureDetails: [MinMax<Int>] {
-        weather?.temperatures24h(selectedTime) ?? []
-    }
-    
-    var cloudsDetails: [DataValue<Int>] {
-        weather?.clouds24h(selectedTime) ?? []
-    }
-    
-    var selectedCityData: CityHeaderData? {
-        let time = getCorrespondingTime(selectedTime)
-        return weather?.cityData(for: time)
-    }
-    
-    var visibilityDetails: [DataValue<Int>] {
-        weather?.visibility24h(selectedTime) ?? []
-    }
-    
-    var visibilityStep: Int {
-        Int(Double(visibilityDetails.map { $0.value }.max() ?? 0) / 4.0)
-    }
-    
-    var precipationDetails: [DataValue<Int>] {
-        weather?.precipation24h(selectedTime) ?? []
-    }
-    
-    var pressureMinimum: Int {
-        (pressureDetails.map { $0.value }.min() ?? 0) - 5
-    }
-    
-    var pressureDetails: [DataValue<Int>] {
-        weather?.pressure24h(selectedTime) ?? []
-    }
-    
     
     func updateWeather() {
         isLoading = true
@@ -85,18 +43,20 @@ final class WeatherModel: ObservableObject {
     }
     
     func didSelectDate(_ date: TimeInterval) {
-        selectedTime = date
+        data.selectedTime = date
     }
     
     
-    private func getCorrespondingTime(_ time: TimeInterval?) -> TimeInterval {
-        guard let time = time,
-              let firstDay = weather?.earliestTime else {
-            return 0
-        }
-        let days = firstDay.daysBetween(date: time)
-        return firstDay + (Double(days) * 24.0 * 60.0 * 60.0)
+    private func setupObserver() {
+        orientObserver
+            .publisher
+            .filter({ $0 != .faceUp && $0 != .faceDown })
+            .subscribe(onNext: {
+                self.isLandscape = $0 == .landscapeRight || $0 == .landscapeLeft
+            })
+            .disposed(by: bag)
     }
+    
     
     private func resolveWeather(for city: String) -> Observable<DBWeather> {
         return Observable.create { [unowned self] observer in
@@ -120,12 +80,8 @@ final class WeatherModel: ObservableObject {
         }
     }
     
-    private func handleDataReceive(_ data: DBWeather?) {
-        weather = data
+    private func handleDataReceive(_ weather: DBWeather?) {
+        data.update(weather)
         isLoading = false
-        
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            selectedTime = weather?.earliestTime
-        }
     }
 }

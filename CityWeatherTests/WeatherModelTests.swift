@@ -11,23 +11,20 @@ import XCTest
 
 @testable import CityWeather
 
+final class WeatherModelTests: XCTestCase {
 
-final class ModelTests: XCTestCase {
-
-    typealias T = WeatherService.T
-   
     // TODO: update - not rich yet
     @MainActor func testRichModel() throws {
         
-        let service = service(for: "weatherParis", code: 200)
+        let service = Stubs().service(for: "weatherParis", code: 200)
         let sut = WeatherModel(webService: service)
         
-        XCTAssertNil(sut.weather)
+        XCTAssertNil(sut.data.weather)
         
         sut.updateWeather()
         
-        XCTAssertNotNil(sut.weather)
-        XCTAssertNotNil(sut.selectedCityData)
+        XCTAssertNotNil(sut.data.weather)
+        XCTAssertNotNil(sut.data.selectedCityData)
     }
     
     /**
@@ -38,13 +35,13 @@ final class ModelTests: XCTestCase {
             return
         }
         
-        let service = service(for: "weatherParis", code: 200)
+        let service = Stubs().service(for: "weatherParis", code: 200)
         let sut = WeatherModel(webService: service)
         
         sut.updateWeather()
         
-        XCTAssertNotNil(sut.selectedTime)
-        XCTAssertNotNil(sut.selectedCityData)
+        XCTAssertNotNil(sut.data.selectedTime)
+        XCTAssertNotNil(sut.data.selectedCityData)
     }
     
     /**
@@ -56,52 +53,22 @@ final class ModelTests: XCTestCase {
             return
         }
         
-        let service = service(for: "weatherParis", code: 200)
+        let service = Stubs().service(for: "weatherParis", code: 200)
         let sut = WeatherModel(webService: service)
         
         sut.updateWeather()
         sut.didSelectDate(0)
         
-        XCTAssertNotNil(sut.selectedTime)
-        XCTAssertNotNil(sut.selectedCityData)
+        XCTAssertNotNil(sut.data.selectedTime)
+        XCTAssertNotNil(sut.data.selectedCityData)
     }
     
-    // TODO: move to utils
-    private func targetResponse(code: Int, responseFile: String) -> (ModelTests.T) -> Endpoint{
-        return { (target: T) -> Endpoint in
-            return Endpoint(
-                url: target.path,
-                sampleResponseClosure: {
-                    .networkResponse(
-                        code,
-                        JSON(name:responseFile).data) },
-                method: target.method,
-                task: target.task,
-                httpHeaderFields: target.headers)
-        }
-    }
-    
-    private func service(for responseFile: String, code: Int) -> WeatherService {
-        WeatherService(
-            provider: MoyaProvider<T>(
-                endpointClosure: targetResponse(
-                    code: code,
-                    responseFile: responseFile),
-                stubClosure: { _ in .immediate })
-        )
-    }
-}
-
-//TODO: Move to utils?
-struct JSON {
-    
-    let name: String
-    var data: Data {
-        let bundle = Bundle(for: ModelTests.self)
-        guard let path = bundle.url(forResource: name, withExtension: "json"),
-              let data = try? Data(contentsOf: path) else {
-            return Data()
-        }
-        return data
+    @MainActor func testLessData() throws {
+        let service = Stubs().service(for: "waetherParis20DataPoints", code: 200)
+        let sut = WeatherModel(webService: service)
+        
+        sut.updateWeather()
+        
+        XCTAssertEqual(sut.data.weather?.daysData.count, 20)
     }
 }

@@ -33,35 +33,35 @@ extension WeatherDetailsView: View {
             VStack(spacing: 24) {
                 DataRangeChart(
                     title: "Temperatures for 24 hours in \(AppData.unitSystem.tempUnit)",
-                    data: model.temperatureDetails,
+                    data: model.data.temperatureDetails,
                     margin: 1,
                     step: 1)
                 .frame(height: 200)
                 
                 DataChart(
                     title: "Cloud coverage in '%'",
-                    data: model.cloudsDetails,
+                    data: model.data.cloudsDetails,
                     max: 100,
                     step: 10)
                 .frame(height: 200)
                 
                 DataChart(
                     title: "Pressure in \(AppData.unitSystem.pressureUnit)",
-                    data: model.pressureDetails,
-                    start: model.pressureMinimum,
+                    data: model.data.pressureDetails,
+                    start: model.data.pressureMinimum,
                     margin: 2,
                     step: 2)
                 .frame(height: 200)
                 
                 DataChart(
                     title: "Visibility in \(AppData.unitSystem.distanceUnit)s",
-                    data: model.visibilityDetails,
-                    step: model.visibilityStep)
+                    data: model.data.visibilityDetails,
+                    step: model.data.visibilityStep)
                 .frame(height: 200)
                 
                 DataChart(
                     title: "Precipation probability in '%'",
-                    data: model.precipationDetails,
+                    data: model.data.precipationDetails,
                     max: 100,
                     step: 10)
                 .frame(height: 200)
