@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F2274232B6A4021003E5924"
-               BuildableName = "CityWeather.app"
-               BlueprintName = "CityWeather"
-               ReferencedContainer = "container:CityWeather.xcodeproj">
+               BuildableName = "PixiForecast.app"
+               BlueprintName = "PixiForecast"
+               ReferencedContainer = "container:PixiForecast.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,9 +35,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F2274332B6A4023003E5924"
-               BuildableName = "CityWeatherTests.xctest"
-               BlueprintName = "CityWeatherTests"
-               ReferencedContainer = "container:CityWeather.xcodeproj">
+               BuildableName = "PixiForecastTests.xctest"
+               BlueprintName = "PixiForecastTests"
+               ReferencedContainer = "container:PixiForecast.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -46,9 +46,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F22743D2B6A4023003E5924"
-               BuildableName = "CityWeatherUITests.xctest"
-               BlueprintName = "CityWeatherUITests"
-               ReferencedContainer = "container:CityWeather.xcodeproj">
+               BuildableName = "PixiForecastUITests.xctest"
+               BlueprintName = "PixiForecastUITests"
+               ReferencedContainer = "container:PixiForecast.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -68,9 +68,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F2274232B6A4021003E5924"
-            BuildableName = "CityWeather.app"
-            BlueprintName = "CityWeather"
-            ReferencedContainer = "container:CityWeather.xcodeproj">
+            BuildableName = "PixiForecast.app"
+            BlueprintName = "PixiForecast"
+            ReferencedContainer = "container:PixiForecast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -85,9 +85,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6F2274232B6A4021003E5924"
-            BuildableName = "CityWeather.app"
-            BlueprintName = "CityWeather"
-            ReferencedContainer = "container:CityWeather.xcodeproj">
+            BuildableName = "PixiForecast.app"
+            BlueprintName = "PixiForecast"
+            ReferencedContainer = "container:PixiForecast.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

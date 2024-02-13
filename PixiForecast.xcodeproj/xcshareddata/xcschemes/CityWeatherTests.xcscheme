@@ -19,9 +19,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6F2274332B6A4023003E5924"
-               BuildableName = "CityWeatherTests.xctest"
-               BlueprintName = "CityWeatherTests"
-               ReferencedContainer = "container:CityWeather.xcodeproj">
+               BuildableName = "PixiForecastTests.xctest"
+               BlueprintName = "PixiForecastTests"
+               ReferencedContainer = "container:PixiForecast.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

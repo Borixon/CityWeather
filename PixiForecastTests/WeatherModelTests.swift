@@ -63,12 +63,12 @@ final class WeatherModelTests: XCTestCase {
         XCTAssertNotNil(sut.data.selectedCityData)
     }
     
+    // TODO: 
     @MainActor func testLessData() throws {
         let service = Stubs().service(for: "waetherParis20DataPoints", code: 200)
         let sut = WeatherModel(webService: service)
         
         sut.updateWeather()
-        
-        XCTAssertEqual(sut.data.weather?.daysData.count, 20)
+        XCTFail()
     }
 }
