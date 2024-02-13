@@ -9,5 +9,5 @@ import RxSwift
 
 protocol UseCaseProtocol {
     associatedtype D
-    func invoke() async throws -> Observable<D>
+    func invoke() -> Observable<D>
 }

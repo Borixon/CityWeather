@@ -18,7 +18,7 @@ struct GetWeatherForCoordinates: UseCaseProtocol {
         self.coordinates = coordinates
     }
     
-    func invoke() async throws -> Observable<NSWeather> {
+    func invoke() -> Observable<NSWeather> {
         return Observable.create {
             $0.on(.error(AppError.notImplemented))
             return Disposables.create()
