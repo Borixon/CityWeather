@@ -46,6 +46,9 @@
         }
       }
     },
+    "NO data" : {
+
+    },
     "retryTap" : {
       "extractionState" : "manual",
       "localizations" : {

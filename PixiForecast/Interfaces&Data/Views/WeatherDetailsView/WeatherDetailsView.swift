@@ -10,8 +10,8 @@ import Charts
 
 struct WeatherDetailsView {
     
-    @EnvironmentObject var model: WeatherModel
-    @EnvironmentObject var router: AppRouter
+    @StateObject var model: WeatherPresenter
+    @StateObject var router: AppRouter
     
     var closeVisible: Bool = true
 }
@@ -84,7 +84,6 @@ extension WeatherDetailsView: View {
 #Preview {
     if #available(iOS 17.0, *) {
         WeatherView()
-            .environment(WeatherModel.previewModel)
     } else {
         WeatherView()
     }

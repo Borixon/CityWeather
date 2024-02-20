@@ -8,17 +8,10 @@
 import Foundation
 import SwiftUI
 
-class WeatherModelData {
+struct WeatherModelData {
     
-    @Published var weather: DBWeather? = nil
-    @Published var selectedTime: TimeInterval? = nil
-    
-    func update(_ dataModel: DBWeather?) {
-        weather = dataModel
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            selectedTime = weather?.earliestTime
-        }
-    }
+    var weather: DBWeather? = nil
+    var selectedTime: TimeInterval? = nil
     
     var temperatureDetails: [MinMax<Int>] {
         weather?.temperatures24h(selectedTime) ?? []

@@ -11,11 +11,11 @@ extension WeatherView {
 
     @ViewBuilder internal var iPadView: some View {
         Group {
-            if !model.isLoading, model.data.weather != nil {
+            if !presenter.isLoading, presenter.data.weather != nil {
                 contentView
                     .padding(Margins.standard)
                 
-            } else if model.isLoading {
+            } else if presenter.isLoading {
                 LoadingView()
                 
             } else {
@@ -34,13 +34,13 @@ extension WeatherView {
     
     @ViewBuilder private var retryView: some View {
         RetryInfoView() {
-            model.updateWeather()
+            presenter.updateWeather()
         }
     }
     
     @ViewBuilder private var contentView: some View {
         Group {
-            if model.isLandscape == true {
+            if presenter.isLandscape == true {
                 HStack {
                     details
                     dayList
@@ -55,14 +55,14 @@ extension WeatherView {
     }
     
     @ViewBuilder private var dayListContent: some View {
-        if let daysData = model.data.weather?.daysData {
+        if let daysData = presenter.data.weather?.daysData {
             ForEach(daysData, id: \.id) { item in
                 SmallDayWeatherCell(
                     weatherData: item,
-                    selectedTime: model.data.selectedTime)
+                    selectedTime: presenter.data.selectedTime)
                 .onTapGesture {
-                    model.didSelectDate(item.time)
-                    model.objectWillChange.send()
+                    presenter.didSelectDate(item.time)
+                    presenter.objectWillChange.send()
                 }
             }
             
@@ -72,8 +72,8 @@ extension WeatherView {
     }
     
     @ViewBuilder private var dayList: some View {
-        ScrollView(model.isLandscape == true ? .vertical : .horizontal) {
-            if model.isLandscape == true {
+        ScrollView(presenter.isLandscape == true ? .vertical : .horizontal) {
+            if presenter.isLandscape == true {
                 LazyVStack {
                     dayListContent
                 }
@@ -91,40 +91,48 @@ extension WeatherView {
         VStack {
             HStack {
                 CityHeader(
-                    viewData: model.data.selectedCityData)
+                    viewData: presenter.data.selectedCityData)
                 
                 DataRangeChart(
                     title: "Temperatures for 24 hours in \(AppData.unitSystem.tempUnit)",
-                    data: model.data.temperatureDetails,
+                    data: presenter.data.temperatureDetails,
                     margin: 1,
                     step: 1)
             }
             HStack {
                 DataChart(
                     title: "Cloud coverage in '%'",
-                    data: model.data.cloudsDetails,
+                    data: presenter.data.cloudsDetails,
                     max: 100,
                     step: 10)
                 
                 DataChart(
                     title: "Pressure in \(AppData.unitSystem.pressureUnit)",
-                    data: model.data.pressureDetails,
-                    start: model.data.pressureMinimum,
+                    data: presenter.data.pressureDetails,
+                    start: presenter.data.pressureMinimum,
                     margin: 2,
                     step: 2)
             }
             HStack {
                 DataChart(
                     title: "Visibility in \(AppData.unitSystem.distanceUnit)s",
-                    data: model.data.visibilityDetails,
-                    step: model.data.visibilityStep)
+                    data: presenter.data.visibilityDetails,
+                    step: presenter.data.visibilityStep)
                 
                 DataChart(
                     title: "Precipation probability in '%'",
-                    data: model.data.precipationDetails,
+                    data: presenter.data.precipationDetails,
                     max: 100,
                     step: 10)
             }
         }
     }
+}
+
+#Preview {
+    WeatherView(presenter:
+            .init(interactor:
+                    .init(webService: MockWeatherService())
+            )
+    )
 }

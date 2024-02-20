@@ -8,40 +8,40 @@
 import SwiftUI
 
 extension WeatherView {
-      
+    
     @ViewBuilder internal var iPhoneView: some View {
         NavigationView {
             VStack {
-                if !model.isLoading, let data = model.data.weather {
+                if !presenter.isLoading, let data = presenter.data.weather {
                     contentView(data)
                         .padding(.horizontal, 16)
                     
-                } else if model.isLoading {
+                } else if presenter.isLoading {
                     LoadingView()
                     
                 } else {
                     RetryInfoView() {
-                        model.updateWeather()
+                        presenter.updateWeather()
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
+                Group {
+                    if let data = presenter.data.weather?.city {
+                        OutdoorsView(data)
+                            .edgesIgnoringSafeArea(.all)
+                    } else {
+                        Text("NO data")
+                    }
+                }
                 
-                // TODO: Use swiftgen in order to choose images from structs
-                Image("Background0")
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
-                    .aspectRatio(contentMode: .fill)
             )
         }
         .fullScreenCover(isPresented: $router.isWeatherDetailsPresented) {
-            WeatherDetailsView()
-                .background(
-                    Image("Background0")
-                        .resizable()
-                        .edgesIgnoringSafeArea(.all)
-                        .aspectRatio(contentMode: .fill))
+            WeatherDetailsView(
+                model: presenter,
+                router: router)
         }
     }
     
@@ -56,7 +56,7 @@ extension WeatherView {
                         DayWeatherCell(
                             weatherData: item)
                         .onTapGesture {
-                            model.didSelectDate(item.time)
+                            presenter.didSelectDate(item.time)
                             router.isWeatherDetailsPresented = true
                         }
                     }
@@ -67,10 +67,9 @@ extension WeatherView {
 }
 
 #Preview {
-    if #available(iOS 17.0, *) {
-        WeatherView()
-            .environment(WeatherModel.previewModel)
-    } else {
-        WeatherView()
-    }
+    WeatherView(presenter:
+            .init(interactor:
+                    .init(webService: MockWeatherService())
+            )
+    )
 }

@@ -7,17 +7,36 @@
 
 import Foundation
 import UIKit
+import RxSwift
 import RxRelay
 
-class OrientationObserver: ObservableObject {
+enum AppOrientation {
+    case landscape
+    case portrait
     
-    private lazy var _publisher: BehaviorRelay<UIDeviceOrientation> = {
-        .init(value: current)
-    }()
-    
-    var publisher: BehaviorRelay<UIDeviceOrientation> {
-        _publisher
+    init?(_ deviceOrientation: UIDeviceOrientation) {
+        if [.landscapeLeft, .landscapeRight].contains(deviceOrientation) {
+            self = .landscape
+        } else if [.portrait, .portraitUpsideDown].contains(deviceOrientation) {
+            self = .portrait
+        } else {
+            return nil
+        }
     }
+}
+
+protocol OrientationObserverProtocol: AnyObject {
+    var bag: DisposeBag { get }
+    func orientationDidChange(to orientation: AppOrientation?)
+}
+
+final class OrientationObserver: ObservableObject {
+    
+    static let shared = OrientationObserver()
+    
+    private lazy var relay: BehaviorRelay<AppOrientation?> = {
+        .init(value: .init(current))
+    }()
     
     var current: UIDeviceOrientation {
         UIDevice.current.orientation
@@ -35,7 +54,17 @@ class OrientationObserver: ObservableObject {
         NotificationCenter.default.removeObserver(self)
     }
     
+    func subscribeToOrientationUpdates(_ observer: OrientationObserverProtocol) {
+        relay.subscribe(onNext: { [weak observer] orientation in
+            observer?.orientationDidChange(to: orientation)
+        })
+        .disposed(by: observer.bag)
+    }
+    
     @objc private func orientationDidChange() {
-        publisher.accept(current)
+        guard ![.faceUp, .faceDown].contains(current) else {
+            return
+        }
+        relay.accept(AppOrientation(current))
     }
 }

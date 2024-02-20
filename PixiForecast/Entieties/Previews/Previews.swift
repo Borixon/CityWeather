@@ -16,6 +16,7 @@ struct Previews {
                     time: 177777777,
                     timeReadable: "2024",
                     weather: [.init(
+                        id: 1,
                         main: "Smog",
                         description: "Smog is dense today",
                         icon: "")],
@@ -38,7 +39,7 @@ struct Previews {
                     time: 177780000,
                     timeReadable: "2024",
                     weather: [.init(
-                        main: "Smog",
+                        id: 2, main: "Smog",
                         description: "Smog is dense today",
                         icon: "")],
                     athmosphere: .init(
@@ -59,8 +60,8 @@ struct Previews {
             city: .init(
                 name: "Kraków",
                 country: "PL",
-                sunrise: 177777777,
-                sunset: 177779777))
+                sunrise: 1708156811, //between 1708174811
+                sunset: 1708200011))
     }
     
     static var dbWeather: DBWeather {

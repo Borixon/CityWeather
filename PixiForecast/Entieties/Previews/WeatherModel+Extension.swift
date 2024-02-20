@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension WeatherModel: Observable {
-    static var previewModel: WeatherModel {
-        let model = WeatherModel()
+extension WeatherPresenter: Observable {
+    static var previewModel: WeatherPresenter {
+        let model = WeatherPresenter()
         model.data.weather = Previews.dbWeather
         return model
     }

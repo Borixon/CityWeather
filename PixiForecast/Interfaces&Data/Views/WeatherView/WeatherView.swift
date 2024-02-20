@@ -7,14 +7,15 @@
 
 import SwiftUI
 import RxSwift
+import SnapKit
+import CoreLocation
 
 struct WeatherView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.scenePhase) var scenePhase
     
-    @EnvironmentObject internal var model: WeatherModel
-    @EnvironmentObject internal var router: AppRouter
+    @StateObject internal var presenter: WeatherPresenter = .init()
+    @StateObject internal var router: AppRouter = .init()
     
     var body: some View {
         Group {
@@ -24,14 +25,8 @@ struct WeatherView: View {
                 iPadView
             }
         }
-        .onChange(of: scenePhase) { phase in
-            handleScenePhase(phase)
-        }
-    }
-    
-    private func handleScenePhase(_ phase: ScenePhase) {
-        if phase == .active {
-            model.updateWeather()
+        .onAppear {
+            presenter.updateWeather()
         }
     }
 }

@@ -10,18 +10,12 @@ import RxSwift
 
 struct GetWeatherForName: UseCaseProtocol {
     
-    typealias D = NSWeather
+    typealias D = DBWeather
     
     private let name: String
     
-    init(_ name: String) {
-        self.name = name
-    }
     
-    func invoke() -> Observable<NSWeather> {
-        return Observable.create {
-            $0.on(.error(AppError.notImplemented))
-            return Disposables.create()
-        }
-    }
+    
+    
+    
 }

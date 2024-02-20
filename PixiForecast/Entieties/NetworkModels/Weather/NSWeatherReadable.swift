@@ -8,6 +8,7 @@
 import Foundation
 
 struct NSWeatherReadable: Codable {
+    var id: Int16
     var main: String
     var description: String
     var icon: String

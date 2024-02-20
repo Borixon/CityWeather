@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "pixel-art-sun-icon-png.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

@@ -10,12 +10,12 @@ import SwiftUI
 
 struct Background {
     static var box: some View {
-        RoundedRectangle(cornerRadius: 16)
+        RoundedRectangle(cornerRadius: 0)
             .foregroundColor(Color("BoxColor"))
     }
     
     static var selectedBox: some View {
-        RoundedRectangle(cornerRadius: 16)
+        RoundedRectangle(cornerRadius: 0)
             .foregroundColor(Color("BoxColorSelected"))
     }
 }
